@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MessageSquare, Search, Filter, CheckCheck, Clock, Send, ShieldCheck, Mail, PhoneCall } from "lucide-react";
+import { MessageSquare, Search, Filter, CheckCheck, Clock, Send, ShieldCheck, Mail, PhoneCall, ArrowRight } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 
 const MESSAGES = [
