@@ -4,10 +4,44 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Clock, DollarSign, Users, BrainCircuit, CheckCircle2, AlertTriangle, ShieldAlert, RefreshCw } from 'lucide-react';
 
+import { useTenant } from "@/context/TenantContext";
+
 export default function DashboardHUD() {
+  const { industry, tenantId } = useTenant();
   const [revenue, setRevenue] = useState(426000);
   const [bookings, setBookings] = useState(142);
   const [hoursSaved, setHoursSaved] = useState(58.4);
+
+  const getIndustryContent = () => {
+    switch (industry) {
+      case "LEGAL":
+        return { 
+          title: "Legal Intelligence", 
+          tenantLabel: `ATTORNEY CASELOAD: ${tenantId?.toUpperCase() || "GLOBAL"}`,
+          kpi1: "Active Cases", 
+          kpi2: "Billable Revenue", 
+          kpi3: "Court Hours Reclaimed" 
+        };
+      case "REAL_ESTATE":
+        return { 
+          title: "Asset Intelligence", 
+          tenantLabel: `BROKERAGE FEED: ${tenantId?.toUpperCase() || "GLOBAL"}`,
+          kpi1: "Active Listings", 
+          kpi2: "Sales Volume", 
+          kpi3: "Negotiation Hours" 
+        };
+      default:
+        return { 
+          title: "Medical Intelligence", 
+          tenantLabel: `CLINIC HUD: ${tenantId?.toUpperCase() || "GLOBAL"}`,
+          kpi1: "Consultations", 
+          kpi2: "Generated Revenue", 
+          kpi3: "Staff Hours Reclaimed" 
+        };
+    }
+  };
+
+  const content = getIndustryContent();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,28 +75,29 @@ export default function DashboardHUD() {
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="flex justify-between items-center mb-10 relative z-10">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-[#F5F0E8] flex items-center gap-3">
-            DR. AHMED&apos;S CLINIC
+            {content.tenantLabel}
           </h1>
-          <p className="text-sm opacity-50 mt-1">AI Agent Operating since April 2026</p>
+          <p className="text-sm opacity-50 mt-1">{content.title} &middot; Operating since April 2026</p>
         </div>
         <div className="flex gap-4 items-center">
           <div className="bg-green-500/10 text-green-400 border border-green-500/30 px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase flex items-center gap-2 shadow-[0_0_15px_rgba(76,175,80,0.2)]">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            AI VOICE: ONLINE
+            AI ENGINE: ONLINE
           </div>
           <button className="bg-gradient-to-r from-[#D4AF37] to-[#8C7323] text-[#5C1A1A] px-6 py-2.5 rounded-lg text-[11px] font-bold tracking-widest uppercase hover:opacity-90 transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-            View Full Reports
+            Global Analytics
           </button>
         </div>
       </motion.div>
 
       {/* Metrics Grid */}
       <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-4 gap-6 mb-10 relative z-10">
-        <MetricCard icon={Users} title="Consultations Booked" value={bookings} trend="+12.5% this week" variants={item} />
-        <MetricCard icon={DollarSign} title="Revenue Generated" value={`${revenue.toLocaleString('en-US')} DZD`} trend="Estimated ROI: 8.4x" variants={item} />
-        <MetricCard icon={Clock} title="Hours Reclaimed" value={`${hoursSaved} hrs`} trend="Staff Efficiency: +42%" variants={item} />
-        <MetricCard icon={Activity} title="Patient Satisfaction" value="4.9 / 5" trend="98.2% Positive Sentiment" variants={item} />
+        <MetricCard icon={Users} title={content.kpi1} value={bookings} trend="+12.5% this week" variants={item} />
+        <MetricCard icon={DollarSign} title={content.kpi2} value={`${revenue.toLocaleString('en-US')} DZD`} trend="ROI Target: 8.4x" variants={item} />
+        <MetricCard icon={Clock} title={content.kpi3} value={`${hoursSaved} hrs`} trend="Efficiency: +42%" variants={item} />
+        <MetricCard icon={Activity} title="User Satisfaction" value="4.9 / 5" trend="98.2% Positive Sentiment" variants={item} />
       </motion.div>
+
 
       {/* Lower Section */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="grid grid-cols-3 gap-6 flex-1 min-h-0 relative z-10">
@@ -86,18 +121,21 @@ export default function DashboardHUD() {
               action={<span><strong>Triage Analysis:</strong> Patient reported acute back pain.</span>}
               tag="Triage High" tagColor="text-yellow-400 bg-yellow-400/10 border border-yellow-400/20" time="15 mins ago" 
             />
-            <FeedItem 
-              icon={ShieldAlert} iconColor="text-red-400"
-              action={<span><strong>Emergency Protocol:</strong> Red flag detected (Chest Pain). Doctor alerted via SMS.</span>}
-              tag="Emergency" tagColor="text-red-400 bg-red-400/10 border border-red-400/20" time="42 mins ago" 
-            />
-            <FeedItem 
-              icon={RefreshCw} iconColor="text-blue-400"
-              action={<span><strong>System Update:</strong> Synchronized with G-Cal. 3 slots remaining for tomorrow.</span>}
-              tag="Sync" tagColor="text-blue-400 bg-blue-400/10 border border-blue-400/20" time="1 hr ago" 
-            />
+          </div>
+          
+          {/* Elite System Health Monitor */}
+          <div className="mt-6 pt-6 border-t border-[#F5F0E8]/10 flex items-center justify-between">
+            <div className="flex gap-8">
+              <HealthStat label="Groq Brain" status="99.9%" />
+              <HealthStat label="Vapi Voice" status="99.7%" />
+              <HealthStat label="n8n Engine" status="100%" />
+            </div>
+            <div className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-widest bg-[#D4AF37]/10 px-3 py-1 rounded border border-[#D4AF37]/20">
+              System Load: 4%
+            </div>
           </div>
         </div>
+
 
         <div className="col-span-1 glass-panel p-8 flex flex-col h-full bg-black/20">
           <h2 className="text-xs uppercase tracking-widest mb-6 border-b border-[#F5F0E8]/10 pb-4 text-[#F5F0E8]/70 flex items-center gap-2">
@@ -126,6 +164,18 @@ export default function DashboardHUD() {
           </div>
         </div>
       </motion.div>
+    </div>
+  );
+}
+
+function HealthStat({ label, status }: any) {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="text-[8px] opacity-40 uppercase font-black tracking-widest">{label}</span>
+      <div className="flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(76,175,80,0.5)]"></div>
+        <span className="text-[10px] font-bold tracking-wider">{status}</span>
+      </div>
     </div>
   );
 }

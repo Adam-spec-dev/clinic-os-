@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Self-Scaling Medical AI Engine",
 };
 
+import { TenantProvider } from "@/context/TenantContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -17,8 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased h-screen w-screen flex bg-[#5C1A1A] text-[#F5F0E8]`}>
-        {children}
+        <TenantProvider>
+          {children}
+        </TenantProvider>
       </body>
     </html>
   );
 }
+

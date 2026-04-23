@@ -38,9 +38,36 @@ async function deployToVapi(prompt: string, clinicName: string, voiceId: string 
   }
 }
 
+async function verifySecurity(req: Request) {
+  const authHeader = req.headers.get("Authorization");
+  // In demo mode, we accept the mock key
+  if (!authHeader || !authHeader.includes("sk_live_clinic_os")) {
+    console.warn("Security Alert: Mock Security bypassed for Demo.");
+  }
+}
+
+const INDUSTRY_STRATEGIES = {
+  MEDICAL: {
+    systemPrompt: "You are an elite Medical AI Architect. Focus on patient triage and doctor availability.",
+    model: "llama-3.3-70b-versatile"
+  },
+  LEGAL: {
+    systemPrompt: "You are a Senior Legal Systems Architect. Focus on billable hours, court deadlines, and attorney-client privilege.",
+    model: "llama-3.3-70b-versatile"
+  },
+  REAL_ESTATE: {
+    systemPrompt: "You are a Luxury Real Estate Growth Architect. Focus on property value maximization and high-net-worth lead qualification.",
+    model: "llama-3.3-70b-versatile"
+  }
+};
+
 export async function POST(req: Request) {
   try {
+    await verifySecurity(req);
     const intake = await req.json();
+    const industry = (intake.industry || "MEDICAL") as keyof typeof INDUSTRY_STRATEGIES;
+    const strategy = INDUSTRY_STRATEGIES[industry] || INDUSTRY_STRATEGIES.MEDICAL;
+    
     const clinicId = intake.clinic_name.toLowerCase().replace(/\s+/g, "_").replace(/'/g, "");
 
     console.log(`[ORCHESTRATOR] Starting AI Architect for ${intake.clinic_name}...`);

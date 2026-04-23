@@ -2,21 +2,32 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BrainCircuit, CalendarClock, Settings, Activity } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  BrainCircuit, 
+  CalendarClock, 
+  Settings, 
+  Activity, 
+  Workflow, 
+  MessageSquare,
+  ShieldCheck
+} from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   const navItems = [
     { name: "Intelligence HUD", path: "/", icon: LayoutDashboard },
+    { name: "Communications", path: "/communications", icon: MessageSquare },
     { name: "Patient Memory", path: "/memory", icon: BrainCircuit },
     { name: "Calendar Sync", path: "/calendar", icon: CalendarClock },
+    { name: "Blueprints", path: "/blueprints", icon: Workflow },
     { name: "Analytics", path: "/analytics", icon: Activity },
     { name: "System Config", path: "/config", icon: Settings },
   ];
 
   return (
-    <div className="w-[280px] bg-black/20 border-r border-[#F5F0E8]/10 p-8 flex flex-col gap-8 h-full">
+    <div className="w-[280px] bg-black/20 border-r border-[#F5F0E8]/10 p-8 flex flex-col gap-8 h-full relative z-20">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#8C7323] flex items-center justify-center">
           <BrainCircuit size={18} className="text-[#5C1A1A]" />
@@ -54,7 +65,9 @@ export default function Sidebar() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </div>
-          <div className="text-[10px] font-bold text-[#F5F0E8] tracking-wider uppercase">Active: n8n v1.42</div>
+          <div className="text-[10px] font-bold text-[#F5F0E8] tracking-wider uppercase flex items-center gap-2">
+            <ShieldCheck size={10} className="text-green-400" /> n8n v1.42
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "public": true,
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "installCommand": "cd frontend && npm install",
+  "framework": "nextjs",
+  "regions": ["cdg1"],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/frontend/src/app/api/$1"
+    }
+  ]
+}
