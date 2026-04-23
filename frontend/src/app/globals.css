@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --cherry: #5C1A1A;
+  --vanilla: #F5F0E8;
+  --gold: #D4AF37;
+  --glass: rgba(245, 240, 232, 0.05);
+  --border: rgba(245, 240, 232, 0.1);
+  --success: #4CAF50;
+  --warning: #FFC107;
+  --danger: #F44336;
+}
+
+body {
+  background-color: var(--cherry);
+  color: var(--vanilla);
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  border-color: var(--vanilla);
+  transform: translateY(-2px);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}

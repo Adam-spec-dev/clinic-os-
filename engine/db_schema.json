@@ -1,0 +1,50 @@
+{
+  "project": "Clinic OS",
+  "version": "1.0.0",
+  "database": "Airtable / PostgreSQL",
+  "tables": [
+    {
+      "name": "Clinics",
+      "description": "Master config for each clinic (Multi-tenancy)",
+      "fields": [
+        {"name": "Clinic_ID", "type": "UUID", "primary": true},
+        {"name": "Clinic_Name", "type": "String"},
+        {"name": "Vapi_Phone_Number", "type": "String", "index": true},
+        {"name": "Doctor_Name", "type": "String"},
+        {"name": "Specialty", "type": "String"},
+        {"name": "Consultation_Price", "type": "Currency"},
+        {"name": "Opening_Hours", "type": "JSON"},
+        {"name": "GCal_Calendar_ID", "type": "String"},
+        {"name": "Emergency_SMS_Number", "type": "String"},
+        {"name": "System_Prompt_Override", "type": "Text"}
+      ]
+    },
+    {
+      "name": "Patients",
+      "description": "Système de Mémoire Centrale (Long-term Memory)",
+      "fields": [
+        {"name": "Patient_ID", "type": "UUID", "primary": true},
+        {"name": "Phone_Number", "type": "String", "index": true},
+        {"name": "Full_Name", "type": "String"},
+        {"name": "Medical_History_Summary", "type": "Text"},
+        {"name": "Allergies", "type": "Array"},
+        {"name": "Preferred_Language", "type": "String"},
+        {"name": "Last_Interaction_Date", "type": "DateTime"},
+        {"name": "Interaction_Notes", "type": "Text"}
+      ]
+    },
+    {
+      "name": "Bookings",
+      "description": "Transaction logs",
+      "fields": [
+        {"name": "Booking_ID", "type": "UUID", "primary": true},
+        {"name": "Clinic_ID", "type": "UUID", "foreign_key": "Clinics.Clinic_ID"},
+        {"name": "Patient_ID", "type": "UUID", "foreign_key": "Patients.Patient_ID"},
+        {"name": "Appointment_Time", "type": "DateTime"},
+        {"name": "Status", "type": "Enum", "options": ["Booked", "Confirmed", "Cancelled", "No-Show"]},
+        {"name": "Triage_Level", "type": "Enum", "options": ["Green", "Yellow", "Red"]},
+        {"name": "Call_Transcript_Link", "type": "URL"}
+      ]
+    }
+  ]
+}

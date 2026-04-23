@@ -1,0 +1,77 @@
+{
+  "clinic_name": "Cabinet Dentaire El Amir",
+  "clinic_type": "Dental",
+  "city": "Algiers",
+  "address": "123 Rue Didouche Mourad",
+  "hours": {
+    "start": "08:00",
+    "end": "17:00"
+  },
+  "doctors": [
+    {
+      "name": "Dr. Mansouri",
+      "specialty": "Orthodontics",
+      "days": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "hours_start": "09:00",
+      "hours_end": "17:00",
+      "slot_duration": "30",
+      "calendar_email": "mansouri@clinic.dz"
+    },
+    {
+      "name": "Dr. Belkacem",
+      "specialty": "General Dentistry",
+      "days": [
+        "Tue",
+        "Thu",
+        "Sat"
+      ],
+      "hours_start": "10:00",
+      "hours_end": "18:00",
+      "slot_duration": "45",
+      "calendar_email": "belkacem@clinic.dz"
+    }
+  ],
+  "services": [
+    {
+      "name": "Consultation",
+      "price": "3000",
+      "duration": "30"
+    },
+    {
+      "name": "Teeth Cleaning",
+      "price": "5000",
+      "duration": "45"
+    },
+    {
+      "name": "Root Canal",
+      "price": "25000",
+      "duration": "60"
+    },
+    {
+      "name": "Orthodontic Consult",
+      "price": "4000",
+      "duration": "30"
+    },
+    {
+      "name": "Teeth Whitening",
+      "price": "15000",
+      "duration": "60"
+    }
+  ],
+  "tone": "professional",
+  "voice_gender": "female_mature",
+  "languages": [
+    "French",
+    "Arabic"
+  ],
+  "can_book_same_day": "emergency",
+  "booking_advance": "1 month",
+  "confirm_sms": true,
+  "reminder_sms": true,
+  "patient_choose_doctor": "yes",
+  "emergency_number": "+213 555 99 88 77"
+}

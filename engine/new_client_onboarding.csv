@@ -1,0 +1,3 @@
+client_name,industry,required_agents,crm_tool,main_phone_number,admin_email,services_csv_url
+"Dr. Ahmed Dental","Dentist","receptionist,post_op_followup","Airtable","+213555123456","ahmed@dental.com","https://storage.four4.com/dr_ahmed_prices.csv"
+"Clinique de l'Espérance","General Clinic","receptionist,triage,billing","HubSpot","+213661987654","admin@esperance.dz","https://storage.four4.com/esperance_prices.csv"
